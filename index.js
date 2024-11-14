@@ -1,13 +1,16 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const port = 2024;
+const port = 4000;
 
+//app.set("views", path.join(__dirname, "views")); // Set the views folder path
 app.set("view engine", "ejs"); // Set EJS as the template engine
-app.set("views", path.join(__dirname, "views")); // Set the views folder path
 
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.static('public')); // Ensure public files are accessible
+// Serve static files from the 'public' folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 // Route for the root URL
 app.get("/", (req, res) => {
