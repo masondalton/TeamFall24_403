@@ -14,9 +14,22 @@ img {vertical-align: middle;}
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  max-width: 100%;
   margin: auto;
+  /*max-width: 100%;
+  position: relative;
+  margin: auto;*/
+}
+
+.mySlides img {
+  margin: auto;
+  display: block;
+  max-width: 100%; /* Adjusts the image to fit within the container */
+  height: auto;
 }
 
 /* Next & previous buttons */
@@ -27,7 +40,7 @@ img {vertical-align: middle;}
   width: auto;
   padding: 16px;
   margin-top: -22px;
-  color: white;
+  color: black;
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
@@ -38,7 +51,10 @@ img {vertical-align: middle;}
 /* Position the "next button" to the right */
 .next {
   right: 0;
-  border-radius: 3px 0 0 3px;
+}
+
+.prev {
+  left: 0;
 }
 
 /* On hover, add a black background color with a little bit see-through */
@@ -91,9 +107,4 @@ img {vertical-align: middle;}
 @keyframes fade {
   from {opacity: .4} 
   to {opacity: 1}
-}
-
-/* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {
-  .prev, .next,.text {font-size: 11px}
 }
