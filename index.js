@@ -17,5 +17,9 @@ app.get("/", (req, res) => {
     res.render("index"); // Render the 'index.ejs' file
 });
 
+app.get("/login", (req, res) => {
+    res.render("login"); // Render the 'index.ejs' file
+});
+
 // Start the server
 app.listen(port, () => console.log('Listening!'));
