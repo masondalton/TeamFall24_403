@@ -32,5 +32,15 @@ app.get("/login", (req, res) => {
     res.render("login"); // Render the 'index.ejs' file
 });
 
+// Routes for editing and deleting clients
+app.get("/editClient/:id", (req, res) => {
+    res.render("clientEdit"); // client edit page opened with current data taken from db
+});
+
+app.get("/delete/:id", (req, res) => {
+    res.render("clients"); // client list after removing info from database
+});
+
+
 // Start the server
 app.listen(port, () => console.log('Listening!'));
