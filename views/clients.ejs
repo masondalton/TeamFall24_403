@@ -98,14 +98,6 @@ table form {
     }
 }
 
-/* Styling for the first two columns (Client ID and First Name) */
-.table th:nth-child(1), .table td:nth-child(1) {
-    width: 20%; /* Adjust width as needed */
-}
-
-.table th:nth-child(2), .table td:nth-child(2) {
-    width: 25%; /* Adjust width as needed */
-}
     </style>
 </head>
 <body>
@@ -161,11 +153,11 @@ table form {
         <% } %>
     </tbody>
 </table>
-</div>
     <!-- A button for the owner to add a customer manually -->
     <form action="/addClient" method="get">
         <button type="submit">Add</button>
     </form>
+</div>
 
 
 </body>
