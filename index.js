@@ -10,7 +10,18 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+// Need to change this conneciton to each of our own localhosts
+// Connection to server
+const knex = require("knex") ({
+    client : "pg",
+    connection : {
+        host : "localhost",
+        user : "postgres",
+        password : "I am a Child of God",
+        database : "assignment3",
+        port : 5432
+    }
+})
 
 // Route for the root URL
 app.get("/", (req, res) => {
