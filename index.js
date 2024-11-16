@@ -34,16 +34,25 @@ app.get("/login", (req, res) => {
 
 // Route to run after succesful login attempt
 app.get("/openClientList", (req, res) => {
-    knex.select().from("client_info").then(clients => {
-        res.render("clients", {allClients: clients}); // client edit page opened with current data taken from db
-    });
-})
+    knex.select().from("client_info")
+        .then(clients => {
+            res.render("clients", { clients: clients }); // Use 'clients' instead of 'allClients'
+        })
+        .catch(err => {
+            console.error("Error fetching clients:", err.message);
+            res.status(500).send("Error fetching client data.");
+        });
+});
 
 // Routes for editing and deleting clients
 app.get("/editClient/:id", (req, res) => {
     // Send the client info to edit page to display
-    knex.select().from("client_info").then(client => {
-        res.render("editClient", {currClient: client}); // client edit page opened with current data taken from db
+    knex.select().from("client_info").then(clients => {
+        res.render("clients", { clients: clients }); 
+    })
+    .catch(err => {
+        console.error("Error fetching clients:", err.message);
+        res.status(500).send("Error fetching client data.");
     });
 });
 

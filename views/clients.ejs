@@ -6,6 +6,107 @@
     <title>Client Information</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="/styles.css" rel="stylesheet">
+    <style>
+        /* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Table container */
+.table-container {
+    max-width: 90%; /* Make it responsive */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* Allows horizontal scrolling if needed */
+}
+
+/* Table styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Header styling */
+.table th {
+    background-color: #f8f8f8;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Row styling */
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Button styling */
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Remove padding and margin for forms inside table */
+table form {
+    margin: 0;
+    padding: 0;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .table th, .table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .table-container {
+        max-width: 100%;
+        padding: 10px;
+    }
+    
+    .table {
+        font-size: 12px;
+    }
+    
+    /* Stack buttons for mobile */
+    .table td form {
+        display: inline-block;
+        margin-top: 5px;
+    }
+}
+
+/* Styling for the first two columns (Client ID and First Name) */
+.table th:nth-child(1), .table td:nth-child(1) {
+    width: 20%; /* Adjust width as needed */
+}
+
+.table th:nth-child(2), .table td:nth-child(2) {
+    width: 25%; /* Adjust width as needed */
+}
+    </style>
 </head>
 <body>
     <!-- Heading for consitency and accessing other parts of website-->
@@ -26,41 +127,41 @@
 
     <!-- table to display the customer data they've submited-->
     <label>List of Client Information</label>
-    <table class="table">
-        <thead>
+    <div class="table-container">
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width: 50%;text-align:left">Client ID</th>
+            <th style="width: 50%;text-align:left">First Name</th>
+            <th style="width: 50%;text-align:left">Last Name</th>
+            <th style="width: 50%;text-align:left">Phone Number</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- EJS functionality to go through each client in the database to display their info -->
+        <% for (let iCount = 0; iCount < clients.length; iCount++) { %>
             <tr>
-                <!-- Column names and extra columns for buttons -->
-                <th style="width: 50%;text-align:left">Client ID</th>
-                <th style="width: 50%;text-align:left">First Name</th>
-                <th style="width: 50%;text-align:left">Last Name</th>
-                <th style="width: 50%;text-align:left">Phone Number</th>
-                <th></th>
-                <th></th>
+                <td><%= clients[iCount].client_id %></td>
+                <td><%= clients[iCount].first_name %></td>
+                <td><%= clients[iCount].last_name %></td>
+                <td><%= clients[iCount].phone_number %></td>
+                <td>
+                    <form action="/editClient/<%= clients[iCount].client_id %>" method="get">
+                        <button type="submit">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/deleteClient/<%= clients[iCount].client_id %>" method="get">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <!-- EJS functionality to go through each client in the database to display their info. 
-                Includes buttons on each person to edit or delete their information -->
-            <% for (let iCount = 0; iCount < myArrayOfClients.length; iCount++) { %>
-                <tr>
-                    <td><%= myArrayOfClients[iCount].clientID %></td>
-                    <td><%= myArrayOfClients[iCount].clientFirstName %></td>
-                    <td><%= myArrayOfClients[iCount].clientLastName %></td>
-                    <td><%= myArrayOfClients[iCount].clientPhone %></td>
-                    <td>
-                        <form action="/editClient/<%= myArrayOfClients[iCount].clientID %>" method="get">
-                            <button type="submit">Edit</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/deleteClient/<%= myArrayOfClients[iCount].clientID %>" method="get">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                <% } %>
-        </tbody>
-    </table>
+        <% } %>
+    </tbody>
+</table>
+</div>
     <!-- A button for the owner to add a customer manually -->
     <form action="/addClient" method="get">
         <button type="submit">Add</button>

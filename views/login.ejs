@@ -73,14 +73,14 @@
 <body>
   <div class="login-container">
     <h2>Login</h2>
-    <form>
+    <form  action="/openClientList" method="get">
       <label for="username">Username</label>
       <input type="text" id="username" name="username" required>
       
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required>
       
-      <button type="button" onclick="login()" action="/openClientList" method="get">Login</button>
+      <button type="button" onclick="login()">Login</button>
       <p id="error-message" class="error-message"></p>
     </form>
   </div>
