@@ -101,6 +101,7 @@
       if (username === correctUsername && password === correctPassword) {
         alert("Login successful!");
         // Redirect to another page or take further actions here
+        res.render('clients')
       } else {
         errorMessage.textContent = "Incorrect username or password";
       }

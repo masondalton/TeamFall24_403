@@ -34,6 +34,7 @@ app.get("/login", (req, res) => {
 
 // Routes for editing and deleting clients
 app.get("/editClient/:id", (req, res) => {
+    // Send the client name to page to display
     res.render("clientEdit"); // client edit page opened with current data taken from db
 });
 
