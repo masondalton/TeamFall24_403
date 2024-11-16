@@ -18,7 +18,7 @@ const knex = require("knex") ({
         host : "localhost",
         user : "postgres",
         password : "I am a Child of God",
-        database : "assignment3",
+        database : "jantzenphotos",
         port : 5432
     }
 })
@@ -32,10 +32,19 @@ app.get("/login", (req, res) => {
     res.render("login"); // Render the 'index.ejs' file
 });
 
+// Route to run after succesful login attempt
+app.get("/openClientList", (req, res) => {
+    knex.select().from("client_info").then(clients => {
+        res.render("clients", {allClients: clients}); // client edit page opened with current data taken from db
+    });
+})
+
 // Routes for editing and deleting clients
 app.get("/editClient/:id", (req, res) => {
-    // Send the client name to page to display
-    res.render("clientEdit"); // client edit page opened with current data taken from db
+    // Send the client info to edit page to display
+    knex.select().from("client_info").then(client => {
+        res.render("editClient", {currClient: client}); // client edit page opened with current data taken from db
+    });
 });
 
 app.get("/delete/:id", (req, res) => {

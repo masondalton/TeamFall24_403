@@ -80,7 +80,7 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required>
       
-      <button type="button" onclick="login()">Login</button>
+      <button type="button" onclick="login()" action="/openClientList" method="get">Login</button>
       <p id="error-message" class="error-message"></p>
     </form>
   </div>
@@ -101,7 +101,7 @@
       if (username === correctUsername && password === correctPassword) {
         alert("Login successful!");
         // Redirect to another page or take further actions here
-        res.render('clients')
+        // Use 'action' to call /openClientList route, use get method
       } else {
         errorMessage.textContent = "Incorrect username or password";
       }
