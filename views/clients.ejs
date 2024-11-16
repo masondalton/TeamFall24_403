@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Information</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Heading for consitency and accessing other parts of website-->
+    <!-- Title and social media links -->
+    <h1>Jantzenphotos</h1>
+    <nav class="icon-menu">
+        <i class="fa-brands fa-instagram fa-2x"></i>
+        <i class="fa-brands fa-youtube fa-2x"></i>
+        <i class="fa-brands fa-facebook fa-2x"></i>
+    </nav>
+    
+    <!-- Links to other pages in site-->
+    <nav class="menu">
+        <a href="login">login</a>
+        <a href="login">about</a> <!-- change the href-->
+        <a href="login">contact</a> <!-- change the href when those pages are created-->
+    </nav>
+
+    <!-- table to display the customer data they've submited-->
+    <label>List of Client Information</label>
+    <table class="table">
+        <thead>
+            <tr>
+                <!-- Column names and extra columns for buttons -->
+                <th style="width: 50%;text-align:left">Client ID</th>
+                <th style="width: 50%;text-align:left">First Name</th>
+                <th style="width: 50%;text-align:left">Last Name</th>
+                <th style="width: 50%;text-align:left">Phone Number</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- EJS functionality to go through each client in the database to display their info. 
+                Includes buttons on each person to edit or delete their information -->
+            <% for (let iCount = 0; iCount < myArrayOfClients.length; iCount++) { %>
+                <tr>
+                    <td><%= myArrayOfClients[iCount].clientID %></td>
+                    <td><%= myArrayOfClients[iCount].clientFirstName %></td>
+                    <td><%= myArrayOfClients[iCount].clientLastName %></td>
+                    <td><%= myArrayOfClients[iCount].clientPhone %></td>
+                    <td>
+                        <form action="/editClient/<%= myArrayOfClients[iCount].clientID %>" method="get">
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/deleteClient/<%= myArrayOfClients[iCount].clientID %>" method="get">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <% } %>
+        </tbody>
+    </table>
+    <!-- A button for the owner to add a customer manually -->
+    <form action="/addClient" method="get">
+        <button type="submit">Add</button>
+    </form>
+
+
+</body>
+</html>
