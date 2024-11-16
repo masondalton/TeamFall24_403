@@ -46,18 +46,22 @@ app.get("/openClientList", (req, res) => {
 
 // Routes for editing and deleting clients
 app.get("/editClient/:id", (req, res) => {
-    // Send the client info to edit page to display
+    // Need to edit this still. Only take ID from db to send to editClient
     knex.select().from("client_info").then(clients => {
-        res.render("clients", { clients: clients }); 
+        res.render("editClient", { clients: clients }); 
     })
     .catch(err => {
-        console.error("Error fetching clients:", err.message);
+        console.error("Error fetching client", err.message);
         res.status(500).send("Error fetching client data.");
     });
 });
 
 app.get("/delete/:id", (req, res) => {
     res.render("clients"); // client list after removing info from database
+});
+
+app.get("/addClient", (req, res) => {
+    res.render("addClient");
 });
 
 
