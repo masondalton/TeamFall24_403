@@ -71,10 +71,12 @@
     </style>
 </head>
 <body>
+    <!-- Form to edit the data of a client. Displays name of client-->
     <div class="add-form">
         <h1>Edit <%= clients[0].first_name %> <%= clients[0].last_name %></h1>
         <br><br>
         <form action="/changeClientInfo" method="post">
+            <!-- hidden type to keep client_id avaliable for post method to edit-->
             <input type="hidden" id="client_id" name="client_id" value="<%= clients[0].client_id %>">
             <label for="firstName">First Name</label>
             <input type="text" id="firstName" name="first_name" value="<%= clients[0].first_name %>">
@@ -88,6 +90,7 @@
             <button type="submit">Edit Client</button>
             <p id="error-message" class="error-message"></p>
         </form>
+        <!-- Form to go back to client list page-->
         <form action="/cancel" method="get">
             <button type="submit" class="cancel-button">Cancel</button>
         </form>

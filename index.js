@@ -39,12 +39,13 @@ app.get("/openClientList", (req, res) => {
             res.render("clients", { clients: clients });
         })
         .catch(err => {
-            console.error("Error fetching clients:", err.message);
+            console.error(err);
             res.status(500).send("Error fetching client data.");
         });
 });
 
 // Routes for editing and deleting clients
+    // This route gets client info for selected client to edit and passes it to the editClient.ejs to edit
 app.get("/editClient/:id", (req, res) => {
     knex.select("client_id",
                 "first_name",
@@ -58,6 +59,7 @@ app.get("/editClient/:id", (req, res) => {
     });
 });
 
+    // This route takes the edits and updates the database with the changes
 app.post("/changeClientInfo", (req, res) => {
     knex("client_info").where("client_id", parseInt(req.body.client_id)).update({
         first_name: req.body.first_name.toUpperCase(),
@@ -65,9 +67,13 @@ app.post("/changeClientInfo", (req, res) => {
         phone_number: req.body.phone_number.toUpperCase()
     }).then(toClients => {
         res.redirect("/openClientList");
-    });
+    }).catch(err => {
+        console.error(err);
+        res.status(500).send("Error fetching client data.");
+    });;
 });
 
+    // This route deletes the info for the client selected
 app.post("/deleteClient/:id", (req, res) => {
     knex("client_info").where("client_id", req.params.id).del().then(client => {
         res.redirect("/openClientList"); 
@@ -90,7 +96,7 @@ app.get("/cancel", (req, res) => {
         res.render("clients", { clients: clients });
     })
     .catch(err => {
-        console.error("Error fetching clients:", err.message);
+        console.error(err);
         res.status(500).send("Error fetching client data.");
     });
 });
@@ -105,7 +111,7 @@ app.post("/makeClient", (req, res) => {
         res.redirect("/openClientList");
     })
     .catch(err => {
-        console.error("Error fetching clients:", err.message);
+        console.error(err);
         res.status(500).send("Error fetching client data.");
     });
 })
