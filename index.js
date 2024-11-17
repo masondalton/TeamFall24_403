@@ -69,7 +69,6 @@ app.post("/changeClientInfo", (req, res) => {
 });
 
 app.post("/deleteClient/:id", (req, res) => {
-    console.log(req.params)
     knex("client_info").where("client_id", req.params.id).del().then(client => {
         res.redirect("/openClientList"); 
     }).catch(err => {
