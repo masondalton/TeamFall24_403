@@ -36,7 +36,7 @@ app.get("/login", (req, res) => {
 app.get("/openClientList", (req, res) => {
     knex.select().from("client_info")
         .then(clients => {
-            res.render("clients", { clients: clients }); // Use 'clients' instead of 'allClients'
+            res.render("clients", { clients: clients });
         })
         .catch(err => {
             console.error("Error fetching clients:", err.message);
@@ -46,23 +46,71 @@ app.get("/openClientList", (req, res) => {
 
 // Routes for editing and deleting clients
 app.get("/editClient/:id", (req, res) => {
-    // Need to edit this still. Only take ID from db to send to editClient
-    knex.select().from("client_info").then(clients => {
-        res.render("editClient", { clients: clients }); 
+    knex.select("client_id",
+                "first_name",
+                "last_name",
+                "phone_number").from("client_info").where("client_id", req.params.id).then(client => {
+        res.render("editClient", {clients: client}); 
     })
     .catch(err => {
-        console.error("Error fetching client", err.message);
+        console.error(err);
         res.status(500).send("Error fetching client data.");
     });
 });
 
+app.post("/changeClientInfo", (req, res) => {
+    console.log(req.body);
+    knex("client_info").where("client_id", parseInt(req.body.client_id)).update({
+        first_name: req.body.first_name.toUpperCase(),
+        last_name: req.body.last_name.toUpperCase(),
+        phone_number: req.body.phone_number.toUpperCase()
+    }).then(toClients => {
+        res.redirect("/openClientList");
+    });
+});
+
 app.get("/delete/:id", (req, res) => {
+    knex.select("client_id",
+        "first_name",
+        "last_name",
+        "phone_number").from("client_info").where("client_id", req.params.id).then(client => {
+res.render("editClient", {clients: client}); 
+}).catch(err => {
+console.error(err);
+res.status(500).send("Error fetching client data.");
+});
     res.render("clients"); // client list after removing info from database
 });
 
+// Opens up the add client page for owner to manually add. Complete as is
 app.get("/addClient", (req, res) => {
     res.render("addClient");
 });
+
+// Routes from addClient
+    // Redirects to client page
+app.get("/cancel", (req, res) => {
+    knex.select().from("client_info")
+    .then(clients => {
+        res.render("clients", { clients: clients });
+    })
+    .catch(err => {
+        console.error("Error fetching clients:", err.message);
+        res.status(500).send("Error fetching client data.");
+    });
+});
+
+    // Adds client information entered in form to database
+app.post("makeClient", (req, res) => {
+    knex.select().from("client_info")
+    .then(clients => {
+        res.render("clients", { clients: clients });
+    })
+    .catch(err => {
+        console.error("Error fetching clients:", err.message);
+        res.status(500).send("Error fetching client data.");
+    });
+})
 
 
 // Start the server
