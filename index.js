@@ -59,7 +59,6 @@ app.get("/editClient/:id", (req, res) => {
 });
 
 app.post("/changeClientInfo", (req, res) => {
-    console.log(req.body);
     knex("client_info").where("client_id", parseInt(req.body.client_id)).update({
         first_name: req.body.first_name.toUpperCase(),
         last_name: req.body.last_name.toUpperCase(),
@@ -69,17 +68,14 @@ app.post("/changeClientInfo", (req, res) => {
     });
 });
 
-app.get("/delete/:id", (req, res) => {
-    knex.select("client_id",
-        "first_name",
-        "last_name",
-        "phone_number").from("client_info").where("client_id", req.params.id).then(client => {
-res.render("editClient", {clients: client}); 
-}).catch(err => {
-console.error(err);
-res.status(500).send("Error fetching client data.");
-});
-    res.render("clients"); // client list after removing info from database
+app.post("/deleteClient/:id", (req, res) => {
+    console.log(req.params)
+    knex("client_info").where("client_id", req.params.id).del().then(client => {
+        res.redirect("/openClientList"); 
+    }).catch(err => {
+        console.error(err);
+        res.status(500).send("Error fetching client data.");
+    }); // client list after removing info from database
 });
 
 // Opens up the add client page for owner to manually add. Complete as is
@@ -101,10 +97,13 @@ app.get("/cancel", (req, res) => {
 });
 
     // Adds client information entered in form to database
-app.post("makeClient", (req, res) => {
-    knex.select().from("client_info")
-    .then(clients => {
-        res.render("clients", { clients: clients });
+app.post("/makeClient", (req, res) => {
+    knex("client_info").insert({
+        first_name: req.body.first_name.toUpperCase(),
+        last_name: req.body.last_name.toUpperCase(),
+        phone_number: req.body.phone_number.toUpperCase()
+    }).then(toClients => {
+        res.redirect("/openClientList");
     })
     .catch(err => {
         console.error("Error fetching clients:", err.message);
