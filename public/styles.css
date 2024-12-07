@@ -153,7 +153,6 @@ img {vertical-align: middle;}
 }
 
 .search-form button {
-    background-color: #007BFF;
     color: white;
     padding: 10px 16px;
     font-size: 16px;
@@ -162,6 +161,3 @@ img {vertical-align: middle;}
     cursor: pointer;
 }
 
-.search-form button:hover {
-    background-color: #0056b3;
-}

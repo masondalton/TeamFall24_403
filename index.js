@@ -90,7 +90,7 @@ app.get("/editClient/:id", (req, res) => {
 app.get("/searchClient", (req, res) => {
     const query = req.query.query; // Extract the search query from the URL
 
-    knex("Client")
+    knex("client")
         .whereILike("first_name", `%${query}%`) // Case-insensitive search on first_name
         .orWhereILike("last_name", `%${query}%`) // Case-insensitive search on last_name
         .orWhere("phone_number", "like", `%${query}%`) // Partial match on phone_number
