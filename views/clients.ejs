@@ -101,8 +101,6 @@ table form {
     </style>
 </head>
 <body>
-    <!-- Heading for consitency and accessing other parts of website-->
-    <!-- Title and social media links -->
     <h1>Jantzenphotos</h1>
     <nav class="icon-menu">
         <i class="fa-brands fa-instagram fa-2x"></i>
@@ -110,56 +108,58 @@ table form {
         <i class="fa-brands fa-facebook fa-2x"></i>
     </nav>
     
-    <!-- Links to other pages in site-->
     <nav class="menu">
         <a href="/">home</a>
-        <a href="login">login</a>
-        <a href="login">about</a> <!-- change the href-->
-        <a href="login">contact</a> <!-- change the href when those pages are created-->
+        <% if (clients) { %> 
+            <a href="/logout">logout</a>
+            <a href="/dashboard">dashboard</a>
+        <% } else { %>
+            <a href="/login">login</a>
+        <% } %>
     </nav>
 
-    <!-- table to display the customer data they've submited-->
-    <div class="table-container">
-    <h2>List of Client Information</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Client ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Phone Number</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- EJS functionality to go through each client in the database to display their info -->
-        <% for (let iCount = 0; iCount < clients.length; iCount++) { %>
-            <tr>
-                <td><%= clients[iCount].client_id %></td>
-                <td><%= clients[iCount].first_name %></td>
-                <td><%= clients[iCount].last_name %></td>
-                <td><%= clients[iCount].phone_number %></td>
-                <td>
-                    <form action="/editClient/<%= clients[iCount].client_id %>" method="get">
-                        <button type="submit">Edit</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="/deleteClient/<%= clients[iCount].client_id %>" method="post">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        <% } %>
-    </tbody>
-</table>
-    <!-- A form for the owner to add a customer manually -->
-    <form action="/addClient" method="get">
-        <button type="submit">Add Client</button>
-    </form>
-</div>
-
-
+    <% if (clients) { %>
+        <div class="table-container">
+            <h2>List of Client Information</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Client ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone Number</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let iCount = 0; iCount < clients.length; iCount++) { %>
+                        <tr>
+                            <td><%= clients[iCount].client_id %></td>
+                            <td><%= clients[iCount].first_name %></td>
+                            <td><%= clients[iCount].last_name %></td>
+                            <td><%= clients[iCount].phone_number %></td>
+                            <td>
+                                <form action="/editClient/<%= clients[iCount].client_id %>" method="get">
+                                    <button type="submit">Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/deleteClient/<%= clients[iCount].client_id %>" method="post">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <form action="/addClient" method="get">
+                <button type="submit">Add Client</button>
+            </form>
+        </div>
+    <% } else { %>
+        <p style="text-align:center;">Please <a href="/login">log in</a> to view this page.</p>
+    <% } %>
 </body>
+
 </html>
