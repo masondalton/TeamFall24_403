@@ -34,8 +34,8 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
 
-    knex("Admin")
-        .where({ Username: username, Password: password }) // Use the updated columns
+    knex("admin")
+        .where({ username: username, password: password }) // Use the updated columns
         .first()
         .then(admin => {
             if (admin) {
@@ -63,7 +63,7 @@ app.get("/contact", (req, res) => {
 
 // Display client list
 app.get("/openClientList", (req, res) => {
-    knex.select().from("Client")
+    knex.select().from("client")
         .then(clients => {
             res.render("clients", { clients: clients });
         })
@@ -75,7 +75,7 @@ app.get("/openClientList", (req, res) => {
 
 // Edit client information
 app.get("/editClient/:id", (req, res) => {
-    knex("Client")
+    knex("client")
         .where("client_id", req.params.id)
         .then(client => {
             res.render("editClient", { clients: client });
@@ -88,7 +88,7 @@ app.get("/editClient/:id", (req, res) => {
 
 // Update client information
 app.post("/changeClientInfo", (req, res) => {
-    knex("Client")
+    knex("client")
         .where("client_id", parseInt(req.body.client_id))
         .update({
             first_name: req.body.first_name.toUpperCase(),
@@ -106,7 +106,7 @@ app.post("/changeClientInfo", (req, res) => {
 
 // Delete client information
 app.post("/deleteClient/:id", (req, res) => {
-    knex("Client")
+    knex("client")
         .where("client_id", req.params.id)
         .del()
         .then(() => {
@@ -125,7 +125,7 @@ app.get("/addClient", (req, res) => {
 
 // Add new client
 app.post("/makeClient", (req, res) => {
-    knex("Client")
+    knex("client")
         .insert({
             first_name: req.body.first_name.toUpperCase(),
             last_name: req.body.last_name.toUpperCase(),
@@ -142,7 +142,7 @@ app.post("/makeClient", (req, res) => {
 
 // Cancel and return to client list
 app.get("/cancel", (req, res) => {
-    knex.select().from("Client")
+    knex.select().from("client")
         .then(clients => {
             res.render("clients", { clients: clients });
         })
