@@ -34,13 +34,14 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
 
-    knex("Admin_credentials")
-        .where({ username: username, password: password })
+    knex("Admin")
+        .where({ Username: username, Password: password }) // Use the updated columns
+        .first()
         .then(admin => {
-            if (admin.length) {
+            if (admin) {
                 res.redirect("/openClientList");
             } else {
-                res.status(401).send("Invalid credentials");
+                res.status(401).render("login", { error: "Invalid credentials" });
             }
         })
         .catch(err => {
@@ -48,6 +49,8 @@ app.post("/login", (req, res) => {
             res.status(500).send("Error validating login credentials.");
         });
 });
+
+
 
 // About and Contact pages
 app.get("/about", (req, res) => {

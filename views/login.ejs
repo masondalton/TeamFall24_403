@@ -73,17 +73,22 @@
 <body>
   <div class="login-container">
     <h2>Login</h2>
+    
     <!-- Hey Jack! the name of the GET route to run to access the clientList is "/openClientList" -->
-    <form>
+    <form method="POST" action="/login">
       <label for="username">Username</label>
       <input type="text" id="username" name="username" required>
-      
+    
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required>
-      
-      <button type="button" onclick="login()">Login</button>
-      <p id="error-message" class="error-message"></p>
+    
+      <button type="submit">Login</button>
+    
+      <% if (typeof error !== "undefined") { %>
+        <p class="error-message"><%= error %></p>
+      <% } %>
     </form>
+        
   </div>
   
   <script>
