@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Jantzenphotos</title>
+    <link href="/styles.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <nav class="menu">
+        <a href="index.html">home</a>
+        <a href="about.html">about</a>
+        <a href="login.html">login</a>
+    </nav>
+
+    <section class="contact-form">
+        <h2>We'd love to hear from you!</h2>
+        <form id="contactForm" action="/submit-form" method="POST">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="details">Photography Needs</label>
+            <textarea id="details" name="details" rows="5"></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Jantzenphotos. All rights reserved.</p>
+    </footer>
+</body>
+</html>
