@@ -83,6 +83,24 @@ app.get("/editClient/:id", (req, res) => {
         });
 });
 
+// Search for a client
+app.get("/searchClient", (req, res) => {
+    const query = req.query.query; // Extract the search query from the URL
+
+    knex("Client")
+        .whereILike("first_name", `%${query}%`) // Case-insensitive search on first_name
+        .orWhereILike("last_name", `%${query}%`) // Case-insensitive search on last_name
+        .orWhere("phone_number", "like", `%${query}%`) // Partial match on phone_number
+        .then(results => {
+            res.render("clients", { clients: results }); // Render the same 'clients' page with filtered results
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send("Error searching client data.");
+        });
+});
+
+
 // Update client information
 app.post("/changeClientInfo", (req, res) => {
     knex("Client")
