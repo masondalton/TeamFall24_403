@@ -29,7 +29,15 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-    res.render("login"); // Render the 'index.ejs' file
+    res.render("login");
+});
+
+app.get("/about", (req, res) => {
+    res.render("about"); 
+});
+
+app.get("/contact", (req, res) => {
+    res.render("contact"); 
 });
 
 // Route to run after succesful login attempt
