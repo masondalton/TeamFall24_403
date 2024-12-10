@@ -25,6 +25,8 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
+
+
 // Login page
 app.get("/login", (req, res) => {
     res.render("login");
@@ -61,6 +63,30 @@ app.get("/contact", (req, res) => {
     res.render("contact");
 });
 
+//Route to send info from contact form to database
+app.post("/contact", (req, res) => {
+    const firstName = req.body.firstName || " "
+    const lastName = req.body.lastName || " "
+    const email = req.body.email || " "
+    const phone = req.body.phone || " "
+    const details = req.body.details || " "
+    
+    knex("client")
+        .insert({
+            firstName : firstName, // Ensure description is uppercase, know how to do this on test
+            lastName : lastName,
+            email : email,
+            phone : phone, 
+            details : details
+        })
+        .then(() => {
+            res.redirect('/'); // Redirect to the Pokémon list page after adding
+        })
+        .catch(error => {
+            console.error('Error adding Client:', error);
+            res.status(500).send('Internal Server Error');
+        });
+});
 // Display client list
 app.get("/openClientList", (req, res) => {
     knex.select().from("client")
