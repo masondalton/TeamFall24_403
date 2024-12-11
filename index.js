@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 app.set("view engine", "ejs"); // Set EJS as the template engine
 
@@ -17,6 +17,12 @@ const knex = require("knex")({
         password: "Robster13",
         database: "Project3",
         port: 5432
+        host: process.env.RDS_HOSTNAME || "localhost",
+        user: process.env.RDS_USERNAME || "postgres",
+        password: process.env.RDS_PASSWORD || "1313",
+        database: process.env.RDS_DB_NAME || "project3",
+        port: process.env.RDS_PORT || 5432,
+        ssl: process.env.db_ssl ? {rejectUnauthorized: false} :  false
     }
 });
 
