@@ -80,7 +80,7 @@ app.post("/contact", (req, res) => {
             details : details
         })
         .then(() => {
-            res.redirect('/'); // Redirect to the Pokémon list page after adding
+            res.redirect('/'); // Redirect to the Index 
         })
         .catch(error => {
             console.error('Error adding Client:', error);
