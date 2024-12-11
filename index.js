@@ -12,11 +12,6 @@ app.use(express.static(path.join(__dirname, 'public'))); // Serve static files f
 const knex = require("knex")({
     client: "pg",
     connection: {
-        host: "localhost",
-        user: "postgres",
-        password: "Robster13",
-        database: "Project3",
-        port: 5432
         host: process.env.RDS_HOSTNAME || "localhost",
         user: process.env.RDS_USERNAME || "postgres",
         password: process.env.RDS_PASSWORD || "1313",
