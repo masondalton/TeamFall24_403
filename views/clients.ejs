@@ -114,8 +114,8 @@ table form {
     <nav class="menu">
         <a href="/">home</a>
         <a href="login">login</a>
-        <a href="login">about</a> <!-- change the href-->
-        <a href="login">contact</a> <!-- change the href when those pages are created-->
+        <a href="about">about</a> <!-- change the href-->
+        <a href="contact">contact</a> <!-- change the href when those pages are created-->
     </nav>
 
     <!-- table to display the customer data they've submited-->
@@ -135,6 +135,7 @@ table form {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Phone Number</th>
+            <th>Details</th>
             <th></th>
             <th></th>
         </tr>
@@ -147,6 +148,7 @@ table form {
                 <td><%= clients[iCount].first_name %></td>
                 <td><%= clients[iCount].last_name %></td>
                 <td><%= clients[iCount].phone_number %></td>
+                <td><%= clients[iCount].details %></td>
                 <td>
                     <form action="/editClient/<%= clients[iCount].client_id %>" method="get">
                         <button type="submit">Edit</button>

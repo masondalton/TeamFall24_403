@@ -5,35 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Jantzenphotos</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Contact Us</h1>
-    <nav class="menu">
-        <a href="index">home</a>
-        <a href="about">about</a>
-        <a href="login">login</a>
-    </nav>
+    <header>
+        <h1>Contact Us</h1>
+        <nav class="menu">
+            <a href="/">home</a>
+            <a href="about">about</a>
+            <a href="login">login</a>
+        </nav>
+    </header>
 
     <section class="contact-form">
         <h2>We'd love to hear from you!</h2>
         <form id="contactForm" action="/contact" method="POST">
-            <label for="firstName">First Name</label>
-            <input type="text" id="first_name" name="first_name" required>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
+            </div>
 
-            <label for="lastName">Last Name</label>
-            <input type="text" id="last_name" name="last_name" required>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+            </div>
 
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            </div>
 
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone_number" required>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone_number" placeholder="Enter your phone number" required>
+            </div>
 
-            <label for="details">Photography Needs</label>
-            <textarea id="details" name="details" rows="5"></textarea>
+            <div class="form-group">
+                <label for="details">Photography Needs</label>
+                <textarea id="details" name="details" rows="5" placeholder="Describe your needs"></textarea>
+            </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit" class="submit-button">Submit</button>
         </form>
     </section>
 
