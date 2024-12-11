@@ -37,7 +37,7 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
 
-    knex("admin_credentials")
+    knex("admin")
         .where({ username: username, password: password }) // Use the updated columns
         .first()
         .then(admin => {
