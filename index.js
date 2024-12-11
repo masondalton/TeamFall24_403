@@ -14,8 +14,8 @@ const knex = require("knex")({
     connection: {
         host: "localhost",
         user: "postgres",
-        password: "1313",
-        database: "project3",
+        password: "Robster13",
+        database: "Project3",
         port: 5432
     }
 });
@@ -36,7 +36,7 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
 
-    knex("admin")
+    knex("admin_credentials")
         .where({ username: username, password: password }) // Use the updated columns
         .first()
         .then(admin => {
@@ -65,18 +65,18 @@ app.get("/contact", (req, res) => {
 
 //Route to send info from contact form to database
 app.post("/contact", (req, res) => {
-    const firstName = req.body.firstName || " "
-    const lastName = req.body.lastName || " "
+    const first_name = req.body.first_name || " "
+    const last_name = req.body.last_name || " "
     const email = req.body.email || " "
-    const phone = req.body.phone || " "
+    const phone_number = req.body.phone_number || " "
     const details = req.body.details || " "
     
     knex("client")
         .insert({
-            firstName : firstName, // Ensure description is uppercase, know how to do this on test
-            lastName : lastName,
+            first_name : first_name, // Ensure description is uppercase, know how to do this on test
+            last_name : last_name,
             email : email,
-            phone : phone, 
+            phone_number : phone_number, 
             details : details
         })
         .then(() => {
