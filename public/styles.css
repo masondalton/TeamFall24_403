@@ -226,3 +226,7 @@ to {opacity: 1}
 .contact-form .submit-button:hover {
   background-color: skyblue;
 }
+
+.photo-grid {
+  text-align: center;
+}
