@@ -227,6 +227,10 @@ to {opacity: 1}
   background-color: skyblue;
 }
 
+.photo-grid {
+  text-align: center;
+}
+
 
 .about-head {
   text-align: center;
